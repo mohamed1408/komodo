@@ -1,0 +1,6 @@
+{
+    "users":[
+        {"name": "trump", "status": "lost"},
+        {"name": "biden", "status": "won"}
+    ]
+}

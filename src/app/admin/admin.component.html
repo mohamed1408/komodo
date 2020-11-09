@@ -1,0 +1,28 @@
+<div class="editorcontainer" [ngClass]="(islight? 'light-theme' : 'dark-theme')">
+    <mat-toolbar>
+        <span>ADMIN</span>
+        <span class="example-spacer"></span>
+        <button class="example-icon" mat-icon-button aria-label="Example icon button with a heart icon"
+            (click)="islight = !islight">
+            <mat-icon>{{islight? 'brightness_2' : 'brightness_5'}}</mat-icon>
+        </button>
+    </mat-toolbar>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>Post Title</mat-label>
+        <input matInput [(ngModel)]="posttitle">
+    </mat-form-field>
+    <div [froalaEditor]="imgOptions" [(froalaModel)]="htmlContent"></div>
+    <br>
+    <div class="d-flex">
+        <button class="pull-right" mat-raised-button aria-label="Example icon button with a vertical three dot icon"
+            (click)="showcode = !showcode">
+            <span class="pr">HTML Code</span>
+            <mat-icon>{{showcode?'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </div>
+    <br>
+    <div *ngIf="showcode" class="html">
+        {{ htmlContent }}
+    </div>
+</div>

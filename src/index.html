@@ -1,13 +1,44 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Komodo</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link href="../node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet"> -->
+  
 </head>
+
 <body>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyALzWRtoJDEgPQM1VhnPejibKWYFIQJR5U",
+      authDomain: "komodo-1574b.firebaseapp.com",
+      databaseURL: "https://komodo-1574b.firebaseio.com",
+      projectId: "komodo-1574b",
+      storageBucket: "komodo-1574b.appspot.com",
+      messagingSenderId: "111321603806",
+      appId: "1:111321603806:web:43a057793c6e10667dac4f",
+      measurementId: "G-RZMJ2ZLEBP"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <app-root></app-root>
 </body>
+
 </html>

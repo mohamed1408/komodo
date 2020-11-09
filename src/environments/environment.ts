@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyALzWRtoJDEgPQM1VhnPejibKWYFIQJR5U",
+    authDomain: "komodo-1574b.firebaseapp.com",
+    databaseURL: "https://komodo-1574b.firebaseio.com",
+    projectId: "komodo-1574b",
+    storageBucket: "komodo-1574b.appspot.com",
+    messagingSenderId: "111321603806",
+    appId: "1:111321603806:web:43a057793c6e10667dac4f",
+    measurementId: "G-RZMJ2ZLEBP"
+  }
 };
 
 /*
