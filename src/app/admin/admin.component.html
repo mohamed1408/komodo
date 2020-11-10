@@ -7,22 +7,45 @@
             <mat-icon>{{islight? 'brightness_2' : 'brightness_5'}}</mat-icon>
         </button>
     </mat-toolbar>
-    
-    <mat-form-field class="example-full-width">
-        <mat-label>Post Title</mat-label>
-        <input matInput [(ngModel)]="posttitle">
-    </mat-form-field>
+    <div>
+        <mat-form-field style="width: 50%;">
+            <mat-label>Post Title</mat-label>
+            <input matInput [(ngModel)]="posttitle">
+        </mat-form-field>
+        <mat-form-field style="width: 50%;">
+            <mat-label>Title Image Url</mat-label>
+            <input matInput [(ngModel)]="titleimageurl">
+        </mat-form-field>
+    </div>
+    <button mat-raised-button aria-label="Example icon button with a vertical three dot icon" (click)="htmlContent = ''">
+        <span class="pr">Clear</span>
+        <mat-icon>close</mat-icon>
+    </button>
+
     <div [froalaEditor]="imgOptions" [(froalaModel)]="htmlContent"></div>
     <br>
     <div class="d-flex">
-        <button class="pull-right" mat-raised-button aria-label="Example icon button with a vertical three dot icon"
-            (click)="showcode = !showcode">
-            <span class="pr">HTML Code</span>
-            <mat-icon>{{showcode?'visibility_off' : 'visibility'}}</mat-icon>
+        <button mat-raised-button aria-label="Example icon button with a vertical three dot icon" (click)="savehtml()">
+            <span class="pr">Save in local</span>
+            <mat-icon>save</mat-icon>
+        </button>
+        <button mat-raised-button aria-label="Example icon button with a vertical three dot icon"
+            (click)="uploadpost()">
+            <span class="pr">Upload Post</span>
+            <mat-icon>cloud_upload</mat-icon>
         </button>
     </div>
     <br>
-    <div *ngIf="showcode" class="html">
-        {{ htmlContent }}
+    <button mat-raised-button aria-label="Example icon button with a vertical three dot icon"
+        (click)="showcode = !showcode">
+        <span class="pr">HTML Code</span>
+        <mat-icon>{{showcode?'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+    <div *ngIf="showcode">
+        <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea [(ngModel)]="htmlContent" matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
     </div>
 </div>

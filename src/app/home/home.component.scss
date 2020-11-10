@@ -1,0 +1,17 @@
+.editorcontainer {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.example-card {
+    max-width: 25%;
+    margin-left: 10px;
+    border: 1px solid red;
+  }
+  .d-flex{
+    display: flex;
+  }
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

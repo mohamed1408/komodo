@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   showcode: boolean = false;
   islight: boolean = true;
   posttitle = '';
+  titleimageurl = '';
   public imgOptions: Object = {
     angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
     immediateAngularModelUpdate: true,
@@ -23,11 +24,13 @@ export class AdminComponent implements OnInit {
       }
     }
   }
-  postobject = { title: '', htmlcontent: '', createdstamp: 0, modifiedstamp: 0 }
+  postobject;
   constructor(
     private db: AngularFireDatabase,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.htmlContent = localStorage.getItem('html')
+   }
 
   ngOnInit(): void {
     var tutorial = this.db.list('posts').valueChanges();
@@ -36,7 +39,9 @@ export class AdminComponent implements OnInit {
     })
   }
   uploadpost() {
-    this.postobject = { title: this.posttitle, htmlcontent: this.htmlContent, createdstamp: new Date().getTime(), modifiedstamp: 0 }
+    this.postobject = { title: this.posttitle, imageurl: this.titleimageurl, htmlcontent: this.htmlContent, createdstamp: new Date().getTime(), modifiedstamp: 0 }
+    var users = this.db.list('posts');
+    users.push(this.postobject)
   }
   setdata() {
     console.log(this.db)
@@ -46,6 +51,9 @@ export class AdminComponent implements OnInit {
 
   getusers() {
     // return this.db.collection('users').get();
+  }
+  savehtml() {
+    localStorage.setItem('html', this.htmlContent);
   }
 
 }
