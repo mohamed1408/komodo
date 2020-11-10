@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getposts.subscribe(data => {
+      console.log(data)
       this.posts = data;
     })
     // this.raw_html = localStorage.getItem('html')
