@@ -22,6 +22,10 @@ export class HomeComponent implements OnInit {
     this.getposts.subscribe(data => {
       console.log(data)
       this.posts = data;
+      this.posts.forEach(data => {
+        console.log(data.key)
+      })
+      // this.db.list('posts').remove(this.posts[7])
     })
     // this.raw_html = localStorage.getItem('html')
     // this.html = this.sanitizer.bypassSecurityTrustHtml(this.raw_html);

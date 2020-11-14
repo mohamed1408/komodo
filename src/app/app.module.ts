@@ -15,6 +15,12 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { EditorModule } from '@progress/kendo-angular-editor';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+// import { LottieAnimationViewModule } from 'ng-lottie';
+// import { LottieModule } from 'ngx-lottie';
+// import player from 'lottie-web';
+// export function playerFactory() {
+//   return player;
+// }
 // {
 //   apiKey: "AIzaSyALzWRtoJDEgPQM1VhnPejibKWYFIQJR5U",
 //   authDomain: "komodo-1574b.firebaseapp.com",
@@ -52,7 +58,9 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    // LottieModule.forRoot({ player: playerFactory }),
+    // LottieAnimationViewModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,30 +10,30 @@
     <form #form (ngSubmit)="uploadpost()" class="example-form">
         <mat-form-field class="w-100">
             <mat-label>Post Title</mat-label>
-            <input matInput [(ngModel)]="posttitle" [formControl]="posttitleFormControl" [errorStateMatcher]="matcher">
+            <input matInput [(ngModel)]="post.title" [formControl]="posttitleFormControl" [errorStateMatcher]="matcher">
             <mat-error *ngIf="posttitleFormControl.hasError('required')">
                 Post Title is required!
             </mat-error>
         </mat-form-field>
         <mat-form-field class="w-100">
             <mat-label>Title Image Url</mat-label>
-            <input matInput [(ngModel)]="titleimageurl" [formControl]="titleimageurlFormControl"
+            <input matInput [(ngModel)]="post.imageurl" [formControl]="titleimageurlFormControl"
                 [errorStateMatcher]="matcher">
             <mat-error *ngIf="titleimageurlFormControl.hasError('required')">
                 Title Image Url is required!
             </mat-error>
         </mat-form-field>
 
-        <div [froalaEditor]="imgOptions" [(froalaModel)]="htmlContent" class="border"
-            [ngClass]="{'border border-danger': htmlContent == ''}"></div>
+        <div [froalaEditor]="imgOptions" [(froalaModel)]="post.htmlcontent" class="border"
+            [ngClass]="{'border border-danger': post.htmlcontent == ''}"></div>
 
-        <mat-error *ngIf="htmlContent == ''">
+        <mat-error *ngIf="post.htmlcontent == ''">
             *Content can-t be empty!
         </mat-error>
 
         <div class="mt-10 pull-right">
             <button mat-fab color="warn" class="mx-10" aria-label="Example icon button with a vertical three dot icon"
-                (click)="htmlContent = ''">
+                (click)="post.htmlcontent = ''">
                 <mat-icon>close</mat-icon>
             </button>
 
@@ -59,7 +59,10 @@
     <div *ngIf="showcode">
         <mat-form-field class="example-full-width">
             <mat-label>Leave a comment</mat-label>
-            <textarea [(ngModel)]="htmlContent" matInput placeholder="Ex. It makes me feel..."></textarea>
+            <textarea [(ngModel)]="post.htmlcontent" matInput placeholder="Ex. It makes me feel..."></textarea>
         </mat-form-field>
     </div>
+    <!-- <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+    <button mat-raised-button (click)="stop()">Stop</button>
+    <button mat-raised-button (click)="play()">Play</button> -->
 </div>

@@ -1,43 +1,66 @@
-<!-- <mat-grid-list cols="4" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let post of posts">
-        <mat-card class="mx-10">
+<!-- <div class="grid-container mx-65">
+    <div class="maingrid">
+        <mat-grid-list cols="4">
+            <div *ngFor="let post of posts;">
+                <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <h5 class="font-22"><strong>{{post.title}}</strong></h5>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1"><img src="{{post.imageurl}}" alt="Photo of a Shiba Inu"
+                        >
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+    </div>
+    <div class="sidegrid">
+        <mat-grid-tile [colspan]="3" [rowspan]="3">
+            <h4 class="text-left"><strong>Side</strong></h4>
+        </mat-grid-tile>
+    </div>
+
+</div> -->
+<div *ngIf="showlist" class="col-xl-12 row dark-theme h-100 m-0">
+    <div *ngFor="let post of posts;" class="col-xl-3 light-theme">
+        <!-- <img src="{{post.imageurl}}" alt="Photo of a Shiba Inu" > -->
+        <mat-card class="example-card mt-10 pb-0">
             <mat-card-header>
-                <mat-card-title>{{post.title}}</mat-card-title>
-                <mat-card-subtitle>Posted @ {{post.createdstamp | date}}</mat-card-subtitle>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title class="text-oneline pointer" (click)="setpost(post)">{{post.title}}</mat-card-title>
+                <mat-card-subtitle>
+                    <span>{{post.createdstamp | date}}</span>
+                    <!-- <span class="example-spacer"></span> -->
+                    <button mat-icon-button aria-label="Example icon button with a home icon">
+                        <mat-icon inline=true>bookmark_border</mat-icon>
+                    </button>
+                    <button mat-icon-button [matMenuTriggerFor]="overflowMenu"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon inline=true>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #overflowMenu="matMenu" [overlapTrigger]="false">
+                        <button mat-menu-item><span>Dismiss this story</span></button>
+                        <button mat-menu-item><span>Mute this author</span></button>
+                        <button mat-menu-item><span>Mute this publication</span></button>
+                        <button mat-menu-item><span>Report this story</span></button>
+                        <button mat-menu-item><span>Block this author</span></button>
+                    </mat-menu>
+
+                </mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="{{post.imageurl}}" alt="Photo of a Shiba Inu" height="160">
-            <mat-card-content>
+            <img mat-card-image class="bg-white pointer" (click)="setpost(post)" src="{{post.imageurl}}" alt="Photo of a Shiba Inu">
+            <!-- <mat-card-content>
                 <p>
                     The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
                     A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
                     bred for hunting.
                 </p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button>EDIT</button>
-                <button mat-button (click)="setpost(post)">VIEW</button>
-            </mat-card-actions>
+            </mat-card-content> -->
+            <!-- <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions> -->
         </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list> -->
-<!-- <mat-grid-list cols="1" rowHeight="100px">
-    <mat-grid-tile *ngFor="let post of posts" role="listitem"> -->
-<mat-grid-list cols="4" rowHeight="2:1">
-    <div *ngFor="let post of posts">
-        <mat-grid-tile [colspan]="3" [rowspan]="1">
-            <h2 class="text-left">{{post.title}}</h2>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1"><img src="{{post.imageurl}}" alt="Photo of a Shiba Inu" height="100">
-        </mat-grid-tile>
     </div>
-</mat-grid-list>
-<!-- <h2>{{post.title}}</h2> -->
-<!-- </mat-grid-tile>
-</mat-grid-list> -->
-<div *ngIf="showlist" class="editorcontainer d-flex">
+</div>
+<!-- <div *ngIf="!showlist" class="editorcontainer d-flex">
     <mat-grid-list cols="2" rowHeight="100px">
         <mat-grid-tile *ngFor="let post of posts" role="listitem">
             <div class="col-xl-12">
@@ -49,7 +72,7 @@
                 </div>
             </div>
         </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
     <!-- <mat-list role="list">
         <mat-list-item *ngFor="let post of posts" role="listitem">
             <div class="col-xl-12">
@@ -62,7 +85,7 @@
             </div>
         </mat-list-item>
     </mat-list> -->
-</div>
+<!-- </div> -->
 <div *ngIf="!showlist" class="editcontainer">
     <button mat-raised-button aria-label="Example icon button with a vertical three dot icon"
         (click)="showlist = !showlist;html = '';">

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg/editor/editor.module.js';
 import { ErrorStateMatcher } from '@angular/material/core';
 import 'froala-editor/js/plugins.pkgd.min.js';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-
+import { PostModule } from '../models/post.module'
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,10 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  htmlContent;
-  postobject;
-  posttitle = '';
-  titleimageurl = '';
+  post = new PostModule();
   islight: boolean = true;
   showcode: boolean = false;
   imgOptions: Object = {
@@ -38,19 +37,36 @@ export class AdminComponent implements OnInit {
   }
   posttitleFormControl = new FormControl('', [
     Validators.required
-  ]);  
+  ]);
   titleimageurlFormControl = new FormControl('', [
     Validators.required
   ]);
   matcher = new MyErrorStateMatcher();
-
+  // private animationItem: AnimationItem;
   constructor(
     private db: AngularFireDatabase,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ngZone: NgZone
   ) {
-    this.htmlContent = localStorage.getItem('html')
+    this.post.htmlcontent = localStorage.getItem('html');
+    this.post.title = '';
+    this.post.imageurl = '';
+    this.post.htmlcontent = '';
   }
+  // options: AnimationOptions = {
+  //   path: 'http://127.0.0.1:8080/notification.json',
+  // };
 
+  // animationCreated(animationItem: AnimationItem): void {
+  //   this.animationItem = animationItem;
+  // }
+  // stop(): void {
+  //   this.ngZone.runOutsideAngular(() => this.animationItem.stop());
+  // }
+ 
+  // play(): void {
+  //   this.ngZone.runOutsideAngular(() => this.animationItem.play());
+  // }
   ngOnInit(): void {
     var tutorial = this.db.list('posts').valueChanges();
     tutorial.subscribe(data => {
@@ -58,10 +74,13 @@ export class AdminComponent implements OnInit {
     })
   }
   uploadpost() {
-    if (!(this.matcher)) {
-      this.postobject = { title: this.posttitle, imageurl: this.titleimageurl, htmlcontent: this.htmlContent, createdstamp: new Date().getTime(), modifiedstamp: 0 }
+    console.log((this.post.title == '' || this.post.imageurl == '' || this.post.htmlcontent == ''))
+    if (!(this.post.title == '' || this.post.imageurl == '' || this.post.htmlcontent == '')) {
+      console.log(this.post)
+      this.post.createdstamp = new Date().getTime();
+      this.post.modifiedstamp = 0;
       var users = this.db.list('posts');
-      // users.push(this.postobject)
+      users.push(this.post)
     }
   }
   setdata() {
@@ -74,7 +93,7 @@ export class AdminComponent implements OnInit {
     // return this.db.collection('users').get();
   }
   savehtml() {
-    localStorage.setItem('html', this.htmlContent);
+    localStorage.setItem('html', this.post.htmlcontent);
   }
 
 }
