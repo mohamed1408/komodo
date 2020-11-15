@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
 import { from, Observable } from 'rxjs';
@@ -10,6 +10,12 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { PostModule } from '../models/post.module'
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import {map, startWith} from 'rxjs/operators';
+
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,7 +39,8 @@ export class AdminComponent implements OnInit {
     events: {
       "contentChanged": () => {
       }
-    }
+    },
+    height: 500
   }
   posttitleFormControl = new FormControl('', [
     Validators.required
@@ -43,6 +50,18 @@ export class AdminComponent implements OnInit {
   ]);
   matcher = new MyErrorStateMatcher();
   // private animationItem: AnimationItem;
+
+  // visible = true;
+  // selectable = true;
+  // removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruitCtrl = new FormControl();
+  filteredFruits: Observable<string[]>;
+  fruits: string[] = ['Lemon'];
+  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  
   constructor(
     private db: AngularFireDatabase,
     private route: ActivatedRoute,
@@ -52,6 +71,47 @@ export class AdminComponent implements OnInit {
     this.post.title = '';
     this.post.imageurl = '';
     this.post.htmlcontent = '';
+
+    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+
+    this.fruitCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.fruits.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
   // options: AnimationOptions = {
   //   path: 'http://127.0.0.1:8080/notification.json',

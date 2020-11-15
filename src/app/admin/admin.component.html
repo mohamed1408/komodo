@@ -1,4 +1,4 @@
-<div class="editorcontainer" [ngClass]="(islight? 'light-theme' : 'dark-theme')">
+<div class="editorcontainer" [ngClass]="(islight? 'gy-light-theme' : 'gy-dark-theme')">
     <mat-toolbar>
         <span>ADMIN</span>
         <span class="example-spacer"></span>
@@ -7,7 +7,64 @@
             <mat-icon>{{islight? 'brightness_2' : 'brightness_5'}}</mat-icon>
         </button>
     </mat-toolbar>
-    <form #form (ngSubmit)="uploadpost()" class="example-form">
+    <div class="col-xl-12 row">
+        <div class="col-xl-4">
+            <mat-form-field class="w-100">
+                <mat-label>Post Title</mat-label>
+                <input matInput [(ngModel)]="post.title">
+                <mat-error *ngIf="post.title == ''">
+                    Post Title is required!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+                <mat-label>Title Image Url</mat-label>
+                <input matInput [(ngModel)]="post.imageurl">
+                <mat-error *ngIf="post.imageurl == ''">
+                    Title Image Url is required!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                    <!-- <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true"
+                        (removed)="remove(fruit)">
+                        {{fruit}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip> -->
+                    <input placeholder="New fruit..." #fruitInput [formControl]="fruitCtrl" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                        {{fruit}}
+                    </mat-option>
+                </mat-autocomplete> -->
+            </mat-form-field>
+            <div class="mt-10 pull-right">
+                <button mat-fab color="warn" class="mx-10"
+                    aria-label="Example icon button with a vertical three dot icon" (click)="post.htmlcontent = ''">
+                    <mat-icon>close</mat-icon>
+                </button>
+
+                <button mat-fab color="primary" class="mx-10"
+                    aria-label="Example icon button with a vertical three dot icon" (click)="savehtml()">
+                    <mat-icon>save</mat-icon>
+                </button>
+
+                <button type="submit" mat-fab color="primary" class="mx-10"
+                    aria-label="Example icon button with a vertical three dot icon">
+                    <mat-icon>cloud_upload</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div [froalaEditor]="imgOptions" [(froalaModel)]="post.htmlcontent" class="border"
+                [ngClass]="{'border border-danger': post.htmlcontent == ''}"></div>
+            <mat-error *ngIf="post.htmlcontent == ''">
+                *Content can-t be empty!
+            </mat-error>
+        </div>
+    </div>
+    <!-- <form #form (ngSubmit)="uploadpost()" class="example-form">
         <mat-form-field class="w-100">
             <mat-label>Post Title</mat-label>
             <input matInput [(ngModel)]="post.title" [formControl]="posttitleFormControl" [errorStateMatcher]="matcher">
@@ -47,8 +104,7 @@
                 <mat-icon>cloud_upload</mat-icon>
             </button>
         </div>
-    </form>
-
+    </form> -->
     <br>
     <button mat-raised-button aria-label="Example icon button with a vertical three dot icon"
         (click)="showcode = !showcode">

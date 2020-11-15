@@ -1,6 +1,6 @@
-.editorcontainer {
-    padding-left: 10px;
-    padding-right: 10px;
+.home-container {
+    height: 100%;
+    overflow: auto;
 }
 
 .example-card {
@@ -44,4 +44,44 @@ text-overflow: ellipsis;
 }
 .pointer{
     cursor: pointer;
+}
+.searchbox {
+  max-width: 0px;
+  overflow-x: hidden;
+  transition: ease-in-out 400ms max-width;
+}
+
+.searchbox.opened {
+  max-width: 500px;
+  transition: ease-in-out 400ms max-width;
+}
+
+input.searchbox {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  background-color: #263238;
+  padding: 12px;
+  font-size: 16px;
+  color: whitesmoke;
+}
+
+.searchbox:focus {
+  outline: none;
+}
+.mat-fab-bottom-right{
+  // background-color: white;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  // color: black;
+}
+.mat-fab-bottom-right.open {
+  animation: rotate .5s ease-in-out 0s;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(45deg); }
 }

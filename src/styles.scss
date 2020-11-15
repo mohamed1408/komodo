@@ -12,7 +12,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$komodo-primary: mat-palette($mat-indigo);
+$komodo-primary: mat-palette($mat-blue,700);
 $komodo-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -34,17 +34,45 @@ $komodo-dark-theme: mat-dark-theme((
     warn: $komodo-warn,
   )
 ));
+///GREY_YELLOW - THEME
+$komodo-gy-primary: mat-palette($mat-blue-grey,900);
+$komodo-gy-accent: mat-palette($mat-orange, 500);
+
+// The warn palette is optional (defaults to red).
+$komodo-gy-warn: mat-palette($mat-pink,900);
+
+$komodo-gy-light-theme: mat-light-theme((
+  color: (
+    primary: $komodo-gy-primary,
+    accent: $komodo-gy-accent,
+    warn: $komodo-gy-warn,
+  )
+));
+$komodo-gy-dark-theme: mat-dark-theme((
+  color: (
+    primary: $komodo-gy-primary,
+    accent: $komodo-gy-accent,
+    warn: $komodo-gy-warn,
+  )
+));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($komodo-light-theme);
+@include angular-material-theme($komodo-gy-light-theme);
 .light-theme {
   @include angular-material-theme($komodo-light-theme);
 }
 .dark-theme {
   @include angular-material-theme($komodo-dark-theme);
-  background-color: rgba(0, 0, 0, 0.87);
+  // background-color: rgba(0, 0, 0, 0.87);
+}
+.gy-light-theme {
+  @include angular-material-theme($komodo-gy-light-theme);
+}
+.gy-dark-theme {
+  @include angular-material-theme($komodo-gy-dark-theme);
+  // background-color: rgba(0, 0, 0, 0.87);
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -62,6 +90,23 @@ strong {
   button:focus{
     outline: none;
   }
+.no-scrollbar::-webkit-scrollbar { width: 0 !important }
+.no-scrollbar { overflow: -moz-scrollbars-none; }
+.no-scrollbar { -ms-overflow-style: none; }
+  .thin-custom-scrollbar::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.thin-custom-scrollbar::-webkit-scrollbar{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.thin-custom-scrollbar::-webkit-scrollbar-thumb{
+	background-color: #000000;
+}
+
 .main-font, .jq-toast-wrap .jq-toast-single, .jq-toast-wrap .jq-toast-single .jq-toast-heading {
   font-family: "Nunito", sans-serif; }
 

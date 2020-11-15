@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -7,68 +8,42 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public firstModel: any = {
-    details: '<p>nothing inserted yet.</p><p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>'
-  };
-  public model: any = {
-    details: '<p>nothing inserted yet.</p><p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>'
-  };
   name = 'Angular';
-
-  froalaOptions: Object = {
-    charCounterCount: false,
-    fileUpload: false,
-    attribution: false,
-    toolbarButtons: [
-      ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript'],
-      ['fontFamily', 'fontSize', 'backgroundColor', 'textColor'],
-      ['paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'insertImage', 'embedly',
-        'insertTable', 'insertLink'],
-      ['specialCharacters', 'insertHR', 'clearFormatting'],
-      ['print', 'spellChecker'],
-      ['undo', 'redo']],
-    toolbarSticky: false,
-    language: 'de',
-    fontFamily: {
-      'Arial,Helvetica,sans-serif': 'Arial',
-      '\'Courier New\',Courier,monospace': 'Courier New',
-      'Georgia,serif': 'Georgia',
-      'Impact,Charcoal,sans-serif': 'Impact',
-      '\'Lucida Console\',Monaco,monospace': 'Lucida Console',
-      'Tahoma,Geneva,sans-serif': 'Tahoma',
-      '\'Times New Roman\',Times,serif': 'Times New Roman',
-      'Verdana,Geneva,sans-serif': 'Verdana',
-    },
-    events: {
-      'froalaEditor.image.beforeUpload': function (e, editor, files) {
-        if (files.length) {
-          // Create a File Reader.
-          const reader = new FileReader();
-
-          // Set the reader to insert images when they are loaded.
-          reader.onload = function (eLoad) {
-            const result = (<any>(eLoad.target)).result;
-            editor.image.insert(result, null, null, editor.image.get());
-          };
-
-          // Read image as base64.
-          reader.readAsDataURL(files[0]);
-        }
-
-        editor.popups.hideAll();
-
-        // Stop default upload chain.
-        return false;
-      },
-      'contentChanged': () => {
-        // Nothing
-        //console.log('contentChanged', this.model.details);
-      }
-    },
-  };
-
-  newModel() {
-    this.model = {
-    };
+  svgs = [
+    { path: "../assets/icons/social/facebook-box.svg", name: "facebook-box" },
+    { path: "../assets/icons/social/facebook-messenger.svg", name: "facebook-messenger" },
+    { path: "../assets/icons/social/facebook.svg", name: "facebook" },
+    { path: "../assets/icons/social/github.svg", name: "github" },
+    { path: "../assets/icons/social/google-maps-old.svg", name: "google-maps-old" },
+    { path: "../assets/icons/social/google-plus.svg", name: "google-plus" },
+    { path: "../assets/icons/social/google-plus-fill.svg", name: "google-plus-fill" },
+    { path: "../assets/icons/social/google-plus-color.svg", name: "google-plus-color" },
+    { path: "../assets/icons/social/instagram.svg", name: "instagram" },
+    { path: "../assets/icons/social/linkedin.svg", name: "linkedin" },
+    { path: "../assets/icons/social/medium-old.svg", name: "medium-old" },
+    { path: "../assets/icons/social/pinterest.svg", name: "pinterest" },
+    { path: "../assets/icons/social/play-button.svg", name: "play-button" },
+    { path: "../assets/icons/social/reddit.svg", name: "reddit" },
+    { path: "../assets/icons/social/reddit-color.svg", name: "reddit-color" },
+    { path: "../assets/icons/social/stack-overflow.svg", name: "stack-overflow" },
+    { path: "../assets/icons/social/stack-overflow-color.svg", name: "stack-overflow-color" },
+    { path: "../assets/icons/social/tiktok.svg", name: "tiktok" },
+    { path: "../assets/icons/social/tumblr.svg", name: "tumblr" },
+    { path: "../assets/icons/social/twitter-squared-100.png", name: "twitter-squared-100.png" },
+    { path: "../assets/icons/social/twitter-squared.svg", name: "twitter-squared" },
+    { path: "../assets/icons/social/twitter.svg", name: "twitter" },
+    { path: "../assets/icons/social/whatsapp.svg", name: "whatsapp" },
+    { path: "../assets/icons/social/wordpress.svg", name: "wordpress" }
+  ]
+  constructor(
+    private sanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry
+  ) {
+    this.svgs.forEach(svg => {
+      this.matIconRegistry.addSvgIcon(
+        svg.name,
+        this.sanitizer.bypassSecurityTrustResourceUrl(svg.path)
+      );
+    })
   }
 }
