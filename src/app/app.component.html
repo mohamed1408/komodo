@@ -1,1 +1,59 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <img src="../../assets/images/png/komodo_dark_logo.png" width="50">
+        <span>KOMODO</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="overflowMenu"
+            aria-label="Example icon button with a home icon">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #overflowMenu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item><span>Dismiss this story</span></button>
+            <button mat-menu-item><span>Mute this author</span></button>
+            <button mat-menu-item><span>Mute this publication</span></button>
+            <button mat-menu-item><span>Report this story</span></button>
+            <button mat-menu-item><span>Block this author</span></button>
+        </mat-menu>
+        <button mat-icon-button (click)="visible = !visible" aria-label="Example icon button with a home icon">
+            <mat-icon>search</mat-icon>
+        </button>
+        <input class="searchbox" [class.opened]="visible" type="text" placeholder="Search Jscrambler's stories">
+    </mat-toolbar-row>
+
+    <!-- <mat-icon mdcTopAppBarActionItem>more_horiz</mat-icon>
+<mat-icon mdcTopAppBarActionItem>search</mat-icon> -->
+</mat-toolbar>
 <router-outlet></router-outlet>
+<mat-toolbar class="gy-light-theme" color="primary">
+    <!-- <mat-toolbar-row class="h-25">
+        <button mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="facebook"></mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="h-25"> -->
+        <span class="example-spacer"></span>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="facebook"></mat-icon>
+        </button>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="instagram"></mat-icon>
+        </button>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="pinterest"></mat-icon>
+        </button>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="play-button"></mat-icon>
+        </button>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="twitter"></mat-icon>
+        </button>
+        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="google-plus"></mat-icon>
+        </button>
+    <!-- </mat-toolbar-row>
+    <mat-toolbar-row class="h-25">
+        <button mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon svgIcon="facebook"></mat-icon>
+        </button>
+    </mat-toolbar-row> -->
+</mat-toolbar>

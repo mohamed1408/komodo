@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { PostModule } from '../models/post.module';
 import { map } from 'rxjs/operators';
 import { MatIconRegistry } from "@angular/material/icon";
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 interface Post {
   key: string;
@@ -24,13 +25,17 @@ export class HomeComponent implements OnInit {
   getposts: AngularFireList<Post> = null;
   posts = [];
   showlist: boolean = true;
-  visible = false;
   isfabopen = false;
+  isTablet: boolean;
+  isMobile: boolean;
+  viewport: string;
+
   constructor(
     private sanitizer: DomSanitizer,
     private db: AngularFireDatabase,
-    private matIconRegistry: MatIconRegistry
-  ) { 
+    private matIconRegistry: MatIconRegistry,
+    public breakpointObserver: BreakpointObserver
+  ) {
     // this.matIconRegistry.addSvgIcon(
     //   `facebook`,
     //   this.sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/social/facebook.svg')
@@ -39,14 +44,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getposts.subscribe(data => {
-    //   console.log(data)
-    //   this.posts = data;
-    //   this.posts.forEach(data => {
-    //     console.log(data.payload.ref)
-    //   })
-    //   // this.db.list('posts').remove(this.posts[7])
-    // })
+    this.breakpointObserver.observe(['(min-width: 1200px)']).subscribe((state: BreakpointState) => {
+      if (state.matches) {
+        this.isMobile = false;
+        this.isTablet = true;
+        this.viewport = 'tablet';
+      } else {
+        this.isMobile = true;
+        this.isTablet = false;
+        this.viewport = 'phone';
+      }
+    });
     this.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>

@@ -1,33 +1,8 @@
-<div class="thin-custom-scrollbar home-container h-100 gy-light-theme">
-    <mat-toolbar color="primary">
-        <mat-toolbar-row class="h-25">
-            <img src="../../assets/images/png/komodo_dark_logo.png" width="10%">
-            <span>KOMODO</span>
-            <span class="example-spacer"></span>
-            <button mat-icon-button [matMenuTriggerFor]="overflowMenu"
-                aria-label="Example icon button with a home icon">
-                <mat-icon>more_horiz</mat-icon>
-            </button>
-            <mat-menu #overflowMenu="matMenu" [overlapTrigger]="false">
-                <button mat-menu-item><span>Dismiss this story</span></button>
-                <button mat-menu-item><span>Mute this author</span></button>
-                <button mat-menu-item><span>Mute this publication</span></button>
-                <button mat-menu-item><span>Report this story</span></button>
-                <button mat-menu-item><span>Block this author</span></button>
-            </mat-menu>
-            <button mat-icon-button (click)="visible = !visible" aria-label="Example icon button with a home icon">
-                <mat-icon>search</mat-icon>
-            </button>
-            <input class="searchbox" [class.opened]="visible" type="text" placeholder="Search Jscrambler's stories">
-        </mat-toolbar-row>
-
-        <!-- <mat-icon mdcTopAppBarActionItem>more_horiz</mat-icon>
-<mat-icon mdcTopAppBarActionItem>search</mat-icon> -->
-    </mat-toolbar>
-    <div *ngIf="showlist" class="col-xl-12 row m-0 h-100 py-20">
+<div class="thin-custom-scrollbar home-container gy-light-theme" [class.mx-100]="!isMobile">
+    <div class="col-xl-12 row m-0 py-20">
         <div *ngFor="let post of posts;" class="col-xl-4 light-theme">
             <!-- <img src="{{post.imageurl}}" alt="Photo of a Shiba Inu" > -->
-            <mat-card class="example-card mt-20 pb-0">
+            <mat-card class="example-card mt-20 pb-0 my-class-with-custom-shadow mat-elevation-z2">
                 <img mat-card-image class="bg-white pointer" (click)="setpost(post)" src="{{post.imageurl}}"
                     alt="Photo of a Shiba Inu">
                 <mat-card-title class="text-oneline pointer" (click)="setpost(post)">{{post.title}}</mat-card-title>
@@ -54,90 +29,7 @@
 
                     </mat-card-subtitle>
                 </mat-card-header>
-                <!-- <mat-card-content>
-<p>
-The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-bred for hunting.
-</p>
-</mat-card-content> -->
-                <!-- <mat-card-actions>
-<button mat-button>LIKE</button>
-<button mat-button>SHARE</button>
-</mat-card-actions> -->
             </mat-card>
         </div>
     </div>
-    <!-- <div *ngIf="!showlist" class="editorcontainer d-flex">
-<mat-grid-list cols="2" rowHeight="100px">
-<mat-grid-tile *ngFor="let post of posts" role="listitem">
-<div class="col-xl-12">
-<div class="col-xl-9">
-<h2>{{post.title}}</h2>
 </div>
-<div class="col-xl-3">
-<img src="{{post.imageurl}}" alt="Photo of a Shiba Inu" height="160">
-</div>
-</div>
-</mat-grid-tile>
-</mat-grid-list> -->
-    <!-- <mat-list role="list">
-<mat-list-item *ngFor="let post of posts" role="listitem">
-<div class="col-xl-12">
-<div class="col-xl-9">
-<h2>{{post.title}}</h2>
-</div>
-<div class="col-xl-3">
-<img src="{{post.imageurl}}" alt="Photo of a Shiba Inu" height="160">
-</div>
-</div>
-</mat-list-item>
-</mat-list> -->
-    <!-- </div> -->
-    <div *ngIf="!showlist" class="editcontainer">
-        <button mat-raised-button aria-label="Example icon button with a vertical three dot icon"
-            (click)="showlist = !showlist;html = '';">
-            <mat-icon>arrow_back</mat-icon>
-            <span style="padding-left: 10px;">Back</span>
-        </button>
-        <div [innerHTML]="html">
-
-        </div>
-    </div>
-</div>
-<button [class.open]="isfabopen" color="accent" (click)="isfabopen = !isfabopen" class="mat-fab-bottom-right" mat-fab>
-    <mat-icon class="icon">add</mat-icon>
-</button>
-<mat-toolbar class="gy-light-theme h-25" color="primary">
-    <!-- <mat-toolbar-row class="h-25">
-        <button mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="facebook"></mat-icon>
-        </button>
-    </mat-toolbar-row>
-    <mat-toolbar-row class="h-25"> -->
-        <span class="example-spacer"></span>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="facebook"></mat-icon>
-        </button>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="instagram"></mat-icon>
-        </button>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="pinterest"></mat-icon>
-        </button>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="play-button"></mat-icon>
-        </button>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="twitter"></mat-icon>
-        </button>
-        <button class="mr-10" mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="google-plus"></mat-icon>
-        </button>
-    <!-- </mat-toolbar-row>
-    <mat-toolbar-row class="h-25">
-        <button mat-mini-fab aria-label="Example icon button with a menu icon">
-            <mat-icon svgIcon="facebook"></mat-icon>
-        </button>
-    </mat-toolbar-row> -->
-</mat-toolbar>

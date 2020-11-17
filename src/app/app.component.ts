@@ -35,6 +35,8 @@ export class AppComponent {
     { path: "../assets/icons/social/whatsapp.svg", name: "whatsapp" },
     { path: "../assets/icons/social/wordpress.svg", name: "wordpress" }
   ]
+  visible = false;
+
   constructor(
     private sanitizer: DomSanitizer,
     private matIconRegistry: MatIconRegistry
