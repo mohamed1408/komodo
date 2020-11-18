@@ -14,4 +14,6 @@ export class PostModule {
   htmlcontent: string;
   createdstamp: number;
   modifiedstamp: number;
+  exclusive: boolean;
+  tags: Array<string>;
 }

@@ -59,8 +59,6 @@ export class AdminComponent implements OnInit {
   filteredFruits: Observable<string[]>;
   fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
   
   constructor(
     private db: AngularFireDatabase,
@@ -71,10 +69,7 @@ export class AdminComponent implements OnInit {
     this.post.title = '';
     this.post.imageurl = '';
     this.post.htmlcontent = '';
-
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+    this.post.tags = [];
   }
 
   add(event: MatChipInputEvent): void {
@@ -83,7 +78,7 @@ export class AdminComponent implements OnInit {
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+      this.post.tags.push(value.trim());
     }
 
     // Reset the input value
@@ -95,23 +90,11 @@ export class AdminComponent implements OnInit {
   }
 
   remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+    const index = this.post.tags.indexOf(fruit);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.post.tags.splice(index, 1);
     }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
   // options: AnimationOptions = {
   //   path: 'http://127.0.0.1:8080/notification.json',
